@@ -77,7 +77,7 @@ app.post('/login', urlencodedParser, async (req, res) => {
 })
 
 app.get('/register', (req, res) => {
-    res.render('register')
+    res.render('/register')
 })
 
 app.post('/register', urlencodedParser, async (req, res) => {
@@ -86,7 +86,7 @@ app.post('/register', urlencodedParser, async (req, res) => {
     let user = await UserModel.findOne({email})
 
     if(user) {
-        return res.redirect('register')
+        return res.redirect('/register')
     }
 
     const hashedPsw = await bcrypt.hash(password, 12)
@@ -99,11 +99,11 @@ app.post('/register', urlencodedParser, async (req, res) => {
 
     await user.save()
 
-    res.redirect('login')
+    res.redirect('/login')
 })
 
 app.get('/dashboard', isAuth, (req, res) => {
-    res.render('dashboard')
+    res.render('/dashboard')
 })
 
 app.listen(PORT, console.log(`app running on port:${PORT}`))
